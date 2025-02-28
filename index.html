@@ -3,10 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/main.css"">
+
     <title>Javascript Entrega1</title>
 </head>
 <body>
-    <h1>Entregable JS</h1>
+  <header>
+    <img src="img/vertical.jfif" alt="Logo de la empresa que consiste en el nombre en mayúsculas y letras colos verde con fondo negro">
+  </header>
+
+    <h1>Gestor de Stock</h1>
+
+    <div id="stockForm" class="stockForm">
+      <form id="productsForm">
+        <input type="file" id="productImage" accept="image/*">
+        <input type="text" class="product" placeholder="Ingrese marca">
+        <input type="text" class="product" placeholder="Ingrese modélo">
+        <input type="text" class="product" placeholder="Ingrese color">
+        <input type="text" class="product" placeholder="Ingrese talle">
+        <input type="text" class="product" placeholder="Ingrese cantidad">
+        <input type="submit" id="submit" value="Agregar">
+      </form>
+    </div>
+
+    <div id="stockContainer" class="stockContainer"></div>
+
+
     <p>Esta aplicación web es un gestor de stock para una tienda de ropa. En el menú podras ver la lista de stock completa, fitrar por tipo de articulo y agregar articulos.</p>
     <ul>
       <li>Tipo: remera, zapatos, etc.</li>
@@ -14,8 +37,6 @@
       <li>Color: rojo, negro, blanco, etc.</li>
       <li>Talle: M, S, 42.</li> 
     </ul>
-    
-
 
   <script src="JS/main.js"></script>
 </body>

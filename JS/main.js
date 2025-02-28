@@ -1,75 +1,118 @@
-let opcion;
-let tipoDeArticulo;
-const listaDeArticulos=[];
-const articulo=[];
+let productCard = JSON.parse(localStorage.getItem("productCard")) || [];
 
-function verListaDeArticulos(){
-    if(listaDeArticulos.length===0){
-        alert("No hay artículos en la lista");
-    } else{
-        alert(listaDeArticulos.join("\n"));
-    }
-};
+const stockContainer = document.getElementById("stockContainer");
+const stockForm = document.getElementById("stockForm");
 
+const createCard = (product) =>{
 
-function verArticulo(){
-    if(articulo.length===0){
-        alert("No hay artículos en la lista");
-    } else{
-        if (tipoDeArticulo= prompt("Ingrese un articulo"));
-        articulo.filter(articulo=>articulo.tipo === tipoDeArticulo);
-        alert(articulo.join("\n"));
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const img = document.createElement("img");
+    img.className = "cardImg"
+    img.src = product.imgUrl;
+
+    const brand = document.createElement("p");
+    brand.innerText = `Marca: ${product.brand}`;
+
+    const model = document.createElement("p");
+    model.innerText = `Modelo: ${product.model}`;
+
+    const color = document.createElement("p");
+    color.innerText = `Color: ${product.color}`;
+
+    const size = document.createElement("p");
+    size.innerText = `Talle: ${product.size}`;
+
+    const amount = document.createElement("p");
+    amount.innerText = `Cantidad: ${product.amount}`;
+
+    const modifyButton = document.createElement("button");
+    modifyButton.className = "cardButton";
+    modifyButton.innerText = "Modificar Stock";
+    modifyButton.onclick = () => modifyStock(product);
+
+    const removeItem = document.createElement("button");
+    removeItem.className = "cardButton";
+    removeItem.innerText = "Eliminar";
+    removeItem.onclick = () => removeProduct(product);
+
+    card.appendChild(img);
+    card.appendChild(brand);
+    card.appendChild(model);
+    card.appendChild(color);
+    card.appendChild(size);
+    card.appendChild(amount);
+    card.appendChild(modifyButton);
+    card.appendChild(removeItem);
+
+    stockContainer.appendChild(card);
+}
+
+const addProduct = (product) =>{
+    productCard.push(product);
+    localStorage.setItem("productCard", JSON.stringify(productCard));
+    stockContainer.innerText= ""
+    showProducts();
+}
+
+const removeProduct = (productToRemove) =>{
+    productCard = productCard.filter(product => product !== productToRemove);
+    localStorage.setItem("productCard", JSON.stringify(productCard));
+    stockContainer.innerHTML = "";
+    showProducts();
+}
+
+const modifyStock = (product) =>{
+    const newAmount = prompt("Ingrese la nueva cantidad:", product.amount);
+    if(newAmount !==null && !isNaN(newAmount)){
+        product.amount = parseInt(newAmount);
+        localStorage.setItem("productCard", JSON.stringify(productCard));
+        stockContainer.innerText="";
+        showProducts();
     }
 }
 
-
-function crearArticulo(){
-    const tipo= prompt("Ingrese el tipo de artículo.");
-    const marca= prompt("Ingrese la marca del artículo.");
-    const color= prompt("Ingrese el color del artículo.");
-    const talle= prompt("Ingrese el talle del artículo.");
-    const continuar= confirm("continuar?")
-
-    if(continuar){
-        articulo.push(tipo);
-        articulo.push(marca);
-        articulo.push(color);
-        articulo.push(talle);
-
-    }
-
-    const agregarArticuloALaLista= listaDeArticulos.push(articulo);
-    confirm ("Vas a agregar a la lista" + "\n\n" + articulo.join("\n") + "\n\n" + "Continuar?")
-    alert("Artículo agregado correctamente.")
-
+const showProducts = () => {
+    if (productCard.length === 0) {
+        const noProductsMessage = document.createElement("p");
+        noProductsMessage.innerText = "No hay productos en el stock.";
+        stockContainer.appendChild(noProductsMessage);
+    } else {
+        productCard.forEach(product => {
+            createCard(product); 
+        });
+    };
 };
 
 
+const productsForm = document.getElementById("productsForm");
+productsForm.addEventListener("submit", (e) =>{
+    e.preventDefault();
+    const brand = e.target[1].value;
+    const model = e.target[2].value;
+    const color = e.target[3].value;
+    const size = e.target[4].value;
+    const amount = e.target[5].value;
 
-do {
-    opcion= parseInt(prompt("Bienvenido!\n\n1. Para ver la lista de stock.\n2. Para filtrar por artículo.\n3. Para agregar un artículo a la lista\n\n Presione 0 para salir."));
+    const cardImg = document.getElementById("productImage");
+    const imgUrl = cardImg.files.length > 0 ? URL.createObjectURL(productImage.files[0]) : "";
 
-
-    switch (opcion) {
-        case 0:
-            confirm("Seguro que desea salir?");
-            break;
-
-        case 1:
-            verListaDeArticulos();
-            break;
-
-        case 2:
-            verArticulo();
-            break;
-
-        case 3:
-            crearArticulo();
-            break;
-
-        default:
-            alert("Opción no válida");
-            break;
-    }
+    const newProduct ={
+        imgUrl,
+        brand,
+        model,
+        color,
+        size,
+        amount
     
-} while (opcion!==0);
+    }
+
+    addProduct(newProduct);
+
+    e.target.reset();
+
+
+});
+
+showProducts();
