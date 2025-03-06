@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
   <header>
     <img src="img/vertical.jfif" alt="Logo de la empresa que consiste en el nombre en mayúsculas y letras colos verde con fondo negro">
   </header>
@@ -21,18 +22,32 @@
 
     <div id="stockForm" class="stockForm">
       <form id="productsForm">
-        <input type="file" id="productImage" accept="image/*">
-        <input type="text" class="product" placeholder="Ingrese marca">
-        <input type="text" class="product" placeholder="Ingrese modélo">
-        <input type="text" class="product" placeholder="Ingrese color">
-        <input type="text" class="product" placeholder="Ingrese talle">
-        <input type="text" class="product" placeholder="Ingrese cantidad">
-        <input type="submit" id="submit" value="Agregar">
+        <div class="product">
+          <input type="file" id="productImage" accept="image/*">
+        </div>
+        <div>
+          <input type="text" class="product" placeholder="Ingrese marca">
+        </div>
+        <div>
+          <input type="text" class="product" placeholder="Ingrese modélo">
+        </div>
+        <div>
+          <input type="text" class="product" placeholder="Ingrese color">
+        </div>
+        <div>
+          <input type="text" class="product" placeholder="Ingrese talle">
+        </div>
+        <div>
+          <input type="text" class="product" placeholder="Ingrese cantidad">
+        </div>
+        <div class="product">
+          <input type="submit" id="submit" value="Agregar">
+        </div>
+        
       </form>
     </div>
 
     <div id="stockContainer" class="stockContainer"></div>
-
 
     <p>
       Esta aplicación web es un gestor de stock para una tienda de ropa.
