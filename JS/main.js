@@ -143,7 +143,7 @@ const removeProduct = (productToRemove) => {
     );
 
     if (index !== -1) {
-        productCard.splice(index, 1); // Elimina el producto del array
+        productCard.splice(index, 1);
         localStorage.setItem("productCard", JSON.stringify(productCard));
         showProducts();
     }
